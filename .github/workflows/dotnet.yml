@@ -24,9 +24,4 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Test
-        run: dotnet test --collect:"XPlat Code Coverage"
-      - name: Generate report
-        uses: maartenba/coveralls-reporter@v1.4.4
-        with:
-          report_files: ./coverage.opencover.xml
-          report_types: "Html;JsonSummary"
+        run: dotnet test --no-build --verbosity normal
