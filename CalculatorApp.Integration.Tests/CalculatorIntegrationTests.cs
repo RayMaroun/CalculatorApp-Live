@@ -1,4 +1,5 @@
 ﻿using CalculatorApp.Integration.Tests.shared;
+using CalculatorApp.Integration.Tests.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
+
 namespace CalculatorApp.Integration.Tests
 {
+    [TestCaseOrderer("CalculatorApp.Integration.Tests.utils.PriorityOrderer", "CalculatorApp.Integration.Tests")]
     public class CalculatorIntegrationTests : IClassFixture<CalculatorIntegrationTestsFixture>
     {
 
@@ -18,7 +21,7 @@ namespace CalculatorApp.Integration.Tests
             _calculatorFixture = calculatorFixture;
         }
 
-        [Theory]
+        [Theory, TestPriority(3)]
         [InlineData(2, 3, 5, 5, 2, 3)]
         public void AdditionAndSubtraction_ShouldReturnCorrectResult_WhenNumbersAreProvided(int a, int b, int expectedAddition, int c, int d, int expectedSubtraction)
         {
@@ -34,7 +37,7 @@ namespace CalculatorApp.Integration.Tests
             Assert.Equal(expectedSubtraction, result2);
         }
 
-        [Theory]
+        [Theory, TestPriority(2)]
         [InlineData(2, 3, 5, 5, 2, 3, 15)]
         public void MultipleOperations_ShouldProduceExpectedResult_WhenValidInputsAreGiven(int a, int b, int expectedAddition, int c, int d, int expectedSubtraction, int expectedMultiplication)
         {
@@ -52,7 +55,7 @@ namespace CalculatorApp.Integration.Tests
             Assert.Equal(expectedMultiplication, result3);
         }
 
-        [Theory]
+        [Theory, TestPriority(1)]
         [InlineData(2, 3, 5, 5, 2, 3, 15, 2, 7.5)]
         [InlineData(2, 3, 5, 5, 2, 3, 15, 0, double.PositiveInfinity)]
         public void PerformComplexMathematicalOperations_CorrectlyAppliesMultipleOperations_ExpectedResults(int a, int b, int expectedAddition, int c, int d, int expectedSubtraction, int expectedMultiplication, int e, double expectedDivision)
